@@ -7,8 +7,9 @@ export default function TaskDetail () {
    
     const { id } = useParams();
     const [task, setTask] = useState<any>({});
-    const [error, setError] = useState(null);
     const [deleteAction, setDeleteAction] = useState(false);
+    const [taskModified, setTaskModified] = useState(false);
+    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -22,6 +23,7 @@ export default function TaskDetail () {
       try {
         const response = await axios.get(`${BACKEND_URL}/api/tasks/${id}`);
         setTask(response.data);
+        setTaskModified(false);
         return response.data;
       } catch (error) {
         // setError(error.message)
@@ -33,7 +35,7 @@ export default function TaskDetail () {
 
     useEffect (() => {
         getTask(id);
-    }, [id]);
+    }, [id, taskModified]);
 
     const status = () => {
         if(task.completed){
@@ -90,6 +92,7 @@ export default function TaskDetail () {
         try {
             const response = await axios.put(`${BACKEND_URL}/api/tasks/${id}`, newTask);
             if (response.status === 200){
+                setTaskModified(true);
                 window.alert("Tarea actualizada exitosamente");
             } else { window.alert("Error actualizando la tarea..") }
         } catch (error) {
@@ -131,7 +134,7 @@ export default function TaskDetail () {
                         className= { 
                             deleteAction? "hidden" : "bg-red-600 w-fit py-1 px-4 rounded-md text-white font-semibold"} 
                     >
-                        Borrar
+                        Borrar Tarea
                     </button>
 
                     <div

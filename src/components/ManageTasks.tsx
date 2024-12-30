@@ -10,15 +10,19 @@ export default function ManageTask (){
 
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [filter, setFilter] = useState<string| undefined>(undefined);
   const [apiError, setApiError] = useState (false);
 
     const fetchTasks = async () => {
       setLoading(true);
       try {
-        // setTimeout(() => {
-        //   console.log("Mensaje después de 2 segundos");
-        // }, 10000);
-        const response = await axios.get(`${BACKEND_URL}/api/tasks`);
+        const params: Record<string, any> = {};
+        if (filter === 'true') {
+          params.completed = true;
+        } else if (filter === 'false') {
+          params.completed = false;
+        }
+        const response = await axios.get(`${BACKEND_URL}/api/tasks`, { params });
         setTasks(response.data);
         setApiError(false);
       } catch (error) {
@@ -29,7 +33,7 @@ export default function ManageTask (){
 
     useEffect(() => {
       fetchTasks();
-    }, []);
+    }, [filter]);
 
     if (loading){
       return (
@@ -40,19 +44,41 @@ export default function ManageTask (){
       )
     } else return (
         
-        <div className='flex flex-col items-center bg-slate-200 border-2 border-red-700 h-full'>
-          <div className='flex justify-between border-0 border-red-500 w-full px-8 mb-10 mt-5'>
-          <h1 className='font-bold text-3xl'>Tareas</h1>
+        <div className='flex flex-col items-center bg-white h-full rounded-md p-7'>
+          <div className='flex justify-between border-0 border-red-500 w-full mb-10 mt-5'>
+          <h1 className='font-bold text-5xl'>Gestor de Tareas</h1>
             <Link
                   to={"/new-task"}
-                  className="text-lg font-semibold bg-purple-500 text-white py-1 px-3 rounded-md"
+                  className="text-lg font-semibold bg-purple-500 text-white py-1 px-3 rounded-md h-fit"
               >
               Nueva Tarea +
             </Link>
 
           </div>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full p-2'>
+          <div className='flex gap-2 font-semibold mr-auto mb-8'>
+            <label
+              htmlFor='completed_filter'
+              className='text-lg'
+            >
+              Filtrar:
+            </label>
+            <select
+            className='px-4 rounded-md border border-slate-300'
+              id='completed_filter'
+              name="completed_filter"
+              value={filter}
+              onChange={(event) => {
+                setFilter(event.target.value)
+              }}
+            >
+              <option value=''>Todas las tareas</option>
+              <option value='true'>Completadas</option>
+              <option value='false'>Pendientes</option>
+            </select>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full'>
             {tasks.map((task: Task) => (
               <SingleTask
                 key={task._id}

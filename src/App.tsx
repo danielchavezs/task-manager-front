@@ -10,7 +10,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div className='flex flex-col p-6 bg-orange-200'>
+        <div className='flex flex-col p-6 bg-indigo-300'>
           <Routes>
             <Route path='/' element={<ManageTask/>}/>
             <Route path='/id/:id' element={<TaskDetail/>}/>
