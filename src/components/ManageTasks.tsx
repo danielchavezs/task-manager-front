@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import SingleTask from './SingleTask';
 import { Task } from '../assets/types';
 import { BACKEND_URL } from '../assets/utils';
+import loaderUrl from '../assets/loader.svg'
 
 export default function ManageTask (){
 
@@ -13,6 +14,9 @@ export default function ManageTask (){
     const fetchTasks = async () => {
       setLoading(true);
       try {
+        setTimeout(() => {
+          console.log("Mensaje después de 2 segundos");
+        }, 10000);
         const response = await axios.get(`${BACKEND_URL}/api/tasks`);
         setTasks(response.data);
         setApiError(false);
@@ -26,20 +30,29 @@ export default function ManageTask (){
       fetchTasks();
     }, []);
 
-    // console.log("Corriendo ManageTasks")
-    return (
+    if (loading){
+      return (
+        <div className='flex flex-col w-full h-full justify-center align-middle'>
+          <embed src={loaderUrl} type="image/svg+xml" width={50} height={50} />
+          <p>CARGANDO</p>
+        </div>
+      )
+    } else return (
         
-        <div className='bg-slate-400 border-2 border-red-700'>
-          <h1 className='text-red-400'>MANAGE TASKS</h1>
+        <div className='flex flex-col space-y-20 items-center bg-slate-300 border-2 border-red-700 h-full'>
+          <h1 className='font-bold'>MANAGE TASKS</h1>
 
-          {tasks.map((task: Task) => (
-            <SingleTask
-              key={task._id}
-              title={task.title}
-              description={task.description}
-              completed={task.completed}
-            />
-          ))}
+          <div className='grid grid-cols-2 gap-5 w-full border-blue-500 border'>
+            {tasks.map((task: Task) => (
+              <SingleTask
+                key={task._id}
+                title={task.title}
+                completed={task.completed}
+                description={task.description}
+                createdAt={task.createdAt}
+              />
+            ))}
+          </div>
         </div>
     );
 };
