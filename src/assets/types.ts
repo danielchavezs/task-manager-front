@@ -7,3 +7,10 @@ export type Task = {
     updatedAt: string,
     __v: number
 }
+
+
+// interface RootState {
+//     filteredTasks: Task[]; // Ajusta `Task` al tipo de tus tareas
+//     loading: boolean;
+// }
+  

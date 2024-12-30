@@ -1,4 +1,5 @@
 export const GET_ALL_TASKS = "GET_ALL_TASKS";
+export const GET_FILTERED_TASKS = "GET_FILTERED_TASKS";
 export const GET_BY_ID = 'GET_BY_ID';
 export const NEW_TASK = "NEW_TASK";
 export const DELETE_TASK = "DELETE_TASK";

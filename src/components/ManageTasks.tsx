@@ -1,46 +1,47 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import SingleTask from './SingleTask';
 import { Task } from '../assets/types';
-import { BACKEND_URL } from '../assets/utils';
-import loaderUrl from '../assets/loader.svg'
 import { Link } from 'react-router-dom';
+import { getFilteredTasks } from '../redux/actions/actions';
+import { useSelector } from 'react-redux';
+import { RootState } from '../redux/reducer';
+import { useAppDispatch } from '../redux/hook';
+import Loader from './Loader';
 
 export default function ManageTask (){
 
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useAppDispatch();
   const [filter, setFilter] = useState<string| undefined>(undefined);
-  const [apiError, setApiError] = useState (false);
+  const { filteredTasks, loading } = useSelector((state: RootState) => state);
 
-    const fetchTasks = async () => {
-      setLoading(true);
-      try {
-        const params: Record<string, any> = {};
-        if (filter === 'true') {
-          params.completed = true;
-        } else if (filter === 'false') {
-          params.completed = false;
-        }
-        const response = await axios.get(`${BACKEND_URL}/api/tasks`, { params });
-        setTasks(response.data);
-        setApiError(false);
-      } catch (error) {
-        setApiError(true);
-      }
-      setLoading(false);
-    };
+    const params: Record<string, any> = {};
+
+    if (filter === 'true') {
+      params.completed = true;
+    } else if (filter === 'false') {
+      params.completed = false;
+    }
+
+    // const fetchTasks = async () => {
+    //   setLoading(true);
+    //   try {
+    //     const response = await axios.get(`${BACKEND_URL}/api/tasks`, { params });
+    //     setTasks(response.data);
+    //     setApiError(false);
+    //   } catch (error) {
+    //     setApiError(true);
+    //   }
+    //   setLoading(false);
+    // };
 
     useEffect(() => {
-      fetchTasks();
-    }, [filter]);
+      // fetchTasks();
+      dispatch(getFilteredTasks(params))
+    }, [filter, dispatch]);
 
     if (loading){
       return (
-        <div className='flex flex-col w-full h-full justify-center align-middle'>
-          <embed src={loaderUrl} type="image/svg+xml" width={50} height={50} />
-          <p>CARGANDO</p>
-        </div>
+        <Loader/>
       )
     } else return (
         
@@ -79,7 +80,7 @@ export default function ManageTask (){
           </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full'>
-            {tasks.map((task: Task) => (
+            {filteredTasks.map((task: Task) => (
               <SingleTask
                 key={task._id}
                 id={task._id}
