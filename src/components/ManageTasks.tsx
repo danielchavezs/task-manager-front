@@ -14,9 +14,9 @@ export default function ManageTask (){
     const fetchTasks = async () => {
       setLoading(true);
       try {
-        setTimeout(() => {
-          console.log("Mensaje después de 2 segundos");
-        }, 10000);
+        // setTimeout(() => {
+        //   console.log("Mensaje después de 2 segundos");
+        // }, 10000);
         const response = await axios.get(`${BACKEND_URL}/api/tasks`);
         setTasks(response.data);
         setApiError(false);
@@ -42,7 +42,7 @@ export default function ManageTask (){
         <div className='flex flex-col space-y-20 items-center bg-slate-300 border-2 border-red-700 h-full'>
           <h1 className='font-bold'>MANAGE TASKS</h1>
 
-          <div className='grid grid-cols-3 gap-5 w-full border-blue-500 border'>
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full border-blue-500 border'>
             {tasks.map((task: Task) => (
               <SingleTask
                 key={task._id}

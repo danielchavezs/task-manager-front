@@ -6,8 +6,8 @@ export default {
     extend: {
       screens: {
         'sm': '320px',
-        'md': '520px',
-        'lg': '900px',
+        'md': '720px',
+        'lg': '950px',
       },
     },
   },
