@@ -8,6 +8,7 @@ export default function TaskDetail () {
     const { id } = useParams();
     const [task, setTask] = useState<any>({});
     const [error, setError] = useState(null);
+    const [deleteAction, setDeleteAction] = useState(false);
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
@@ -16,12 +17,6 @@ export default function TaskDetail () {
         completed: false,
     });
 
-    // const [deleteAction, setDeleteAction] = useState({
-    //     initial: false,
-    //     confirm: false,
-    // });
-
-    const [deleteAction, setDeleteAction] = useState(false);
 
     const getTask = async (id: string | undefined) => {
       try {

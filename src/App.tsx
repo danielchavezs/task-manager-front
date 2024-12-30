@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import store from './redux/store';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import TaskDetail from './components/TaskDetail';
+import CreateTask from './components/CreateTask';
 
 function App() {
 
@@ -13,6 +14,7 @@ function App() {
           <Routes>
             <Route path='/' element={<ManageTask/>}/>
             <Route path='/id/:id' element={<TaskDetail/>}/>
+            <Route path='/new-task' element={<CreateTask/>}/>
           </Routes>
         </div>
 

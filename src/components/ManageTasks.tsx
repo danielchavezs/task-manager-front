@@ -4,6 +4,7 @@ import SingleTask from './SingleTask';
 import { Task } from '../assets/types';
 import { BACKEND_URL } from '../assets/utils';
 import loaderUrl from '../assets/loader.svg'
+import { Link } from 'react-router-dom';
 
 export default function ManageTask (){
 
@@ -39,10 +40,19 @@ export default function ManageTask (){
       )
     } else return (
         
-        <div className='flex flex-col space-y-20 items-center bg-slate-300 border-2 border-red-700 h-full'>
-          <h1 className='font-bold'>MANAGE TASKS</h1>
+        <div className='flex flex-col items-center bg-slate-200 border-2 border-red-700 h-full'>
+          <div className='flex justify-between border-0 border-red-500 w-full px-8 mb-10 mt-5'>
+          <h1 className='font-bold text-3xl'>Tareas</h1>
+            <Link
+                  to={"/new-task"}
+                  className="text-lg font-semibold bg-purple-500 text-white py-1 px-3 rounded-md"
+              >
+              Nueva Tarea +
+            </Link>
 
-          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full border-blue-500 border'>
+          </div>
+
+          <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 w-full p-2'>
             {tasks.map((task: Task) => (
               <SingleTask
                 key={task._id}
