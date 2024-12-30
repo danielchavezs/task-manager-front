@@ -6,19 +6,20 @@ import { BACKEND_URL } from "../assets/utils";
 export default function CreateTask () {
    
     const [task, setTask] = useState<any>({});
-    const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    // Valores iniciales del formulario para crear una tarea
     const [form, setForm] = useState({
         title: "",
         description: "",
         completed: false,
     });
 
- 
+    // Formateo de la fecha para que sea compatible con MongoDB
     const newDate = new Date(task.createdAt);
     const creationDate = newDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
+    // Esta función convierte los strings del formulario en los tipos de datos requeridos por la API.
     const taskUpdate = () => {
         let task = {};
 
@@ -45,6 +46,8 @@ export default function CreateTask () {
 
     const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        
+        // Se ejecuta el formateo de los datos del formulario
         const newTask = taskUpdate();
         try {
             const response = await axios.post(`${BACKEND_URL}/api/tasks/`, newTask);

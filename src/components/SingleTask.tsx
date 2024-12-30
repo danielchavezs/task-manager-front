@@ -3,9 +3,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../assets/utils";
 
-export default function SingleTask ({id, title, description, completed, createdAt}: {id: string, title: string, description: string, completed: boolean, createdAt: string}) {
+export default function SingleTask ({id, title, description, completed, createdAt, onUpdate}: {id: string, title: string, description: string, completed: boolean, createdAt: string, onUpdate: () => void}) {
 
+    // Estado usado para esconder y mostrar con una animación de CSS
+    // la fecha de creación y la descripción en la tarjeta de cada tarea.
     const [showing, setShowing] = useState(false);
+    const [toogleAction, setToogleAction] = useState(false);
 
     const status = () => {
         if(completed){
@@ -13,9 +16,12 @@ export default function SingleTask ({id, title, description, completed, createdA
         } else return "Pendiente"
     };
 
+    // Formateo de la fecha para que sea compatible con MongoDB
     const newDate = new Date(createdAt);
     const creationDate = newDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
+    // Función encargada de cambiar "completed" directamente desde la lista de las tareas, usando estado local
+    // pero también haciendo una solicitud a la API y la base de datos.
     const toogleState = async (event: React.MouseEvent<HTMLButtonElement>) => {
         const newState = () =>{
             let state = null;
@@ -33,11 +39,10 @@ export default function SingleTask ({id, title, description, completed, createdA
         };
 
         try {
-            console.log("Param pasado a la API:", newTask)
             const response = await axios.put(`${BACKEND_URL}/api/tasks/${id}`, newTask);
             if (response.status === 200){
-                console.log("RESPUESTA EN CLIENTE:", response);
                 window.alert("Tarea actualizada exitosamente");
+                onUpdate(); // Llama al método del padre para forzar el re-fetch
             } else { window.alert("Error actualizando la tarea.") }
         } catch (error) {
             console.error(error);
@@ -59,10 +64,6 @@ export default function SingleTask ({id, title, description, completed, createdA
                     
                     <h2 className="font-bold text-lg">{title}</h2>
                     <p className="font-semibold">{status()}</p>
-                    {/* <div className={`flex flex-col mt-4 transition-all duration-1000 ease-in-out ${showing ? 'max-h-fit opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
-                        <p>Creado: {creationDate}</p>
-                        <p>{description}</p>  
-                    </div> */}
                     <div
                         className={`flex flex-col mt-4 overflow-hidden transition-[max-height,opacity] duration-700 ease-in-out ${
                             showing ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'

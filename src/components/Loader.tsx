@@ -1,6 +1,5 @@
 import loaderUrl from '../assets/loader.svg';
 
-
 export default function Loader () {
     return (
         

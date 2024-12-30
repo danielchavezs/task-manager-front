@@ -13,7 +13,9 @@ export default function ManageTask (){
   const dispatch = useAppDispatch();
   const [filter, setFilter] = useState<string| undefined>(undefined);
   const { filteredTasks, loading } = useSelector((state: RootState) => state);
+  const [updateTrigger, setUpdateTrigger] = useState(false);  // Usado para pasar prop al hijo y forzar el re-render en el padre.
 
+    // Conversión de los strings del formulario en los tipos de datos requeridos por el filtro de la API.
     const params: Record<string, any> = {};
 
     if (filter === 'true') {
@@ -22,23 +24,15 @@ export default function ManageTask (){
       params.completed = false;
     }
 
-    // const fetchTasks = async () => {
-    //   setLoading(true);
-    //   try {
-    //     const response = await axios.get(`${BACKEND_URL}/api/tasks`, { params });
-    //     setTasks(response.data);
-    //     setApiError(false);
-    //   } catch (error) {
-    //     setApiError(true);
-    //   }
-    //   setLoading(false);
-    // };
+    const triggerUpdate = () => {
+      setUpdateTrigger(prev => !prev); // Cambia el estado para forzar el re-fetch
+    };
 
     useEffect(() => {
-      // fetchTasks();
       dispatch(getFilteredTasks(params))
-    }, [filter, dispatch]);
+    }, [filter, dispatch, updateTrigger]);
 
+    // Las actions en redux también manejan un estado loading que presenta un spinner mientras se resuelve la solicitud.
     if (loading){
       return (
         <Loader/>
@@ -87,6 +81,7 @@ export default function ManageTask (){
                 completed={task.completed}
                 description={task.description}
                 createdAt={task.createdAt}
+                onUpdate={triggerUpdate} // Pasamos el método al hijo
               />
             ))}
           </div>

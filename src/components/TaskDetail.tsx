@@ -15,15 +15,16 @@ export default function TaskDetail () {
     const [deleteAction, setDeleteAction] = useState(false);
     const [taskModified, setTaskModified] = useState(false);
     const { singleTask, loading } = useSelector((state: RootState) => state);
-    // const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    // Estado incial para el formulario de actualización
     const [form, setForm] = useState({
         title: "",
         description: "",
         completed: false,
     });   
 
+    // Volvemos a realziar el fetch de los datos de la tarea al ejecutarse algún cambio.
     useEffect (() => {
         dispatch(getByID(id));
     }, [id, taskModified]);
@@ -64,10 +65,12 @@ export default function TaskDetail () {
         }));
     };
 
+    // Su función es generar un nivel adicional de protección y evitar que se borren datos por accidente.
     const deleteButton = (event: React.MouseEvent<HTMLButtonElement>) => {
         setDeleteAction(true);
     };
 
+    // Función que realmente ejecuta la llamada a la API para eliminar la tarea
     const confirmDeleteButton = async (event: React.MouseEvent<HTMLButtonElement>) => {
         try {
             const response = await axios.delete(`${BACKEND_URL}/api/tasks/${id}`);
@@ -94,9 +97,6 @@ export default function TaskDetail () {
             console.error(error);
         }
     };
-
-    console.log("FORM:", form);
-
     
     if (loading){
         return (
@@ -110,12 +110,12 @@ export default function TaskDetail () {
             >
              🏡 Inicio
             </Link>
-            <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 mt-16 md:space-x-5 sm:space-x-0">
-                <div className="flex flex-col justify-between md:w-3/5 border-0">
+            <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:mt-16 sm:mt-8 md:space-x-8 sm:space-x-0">
+                <div className="flex flex-col justify-between lg:w-3/5 md:w-1/2 border-0">
                     <div>
                         <h1 className="font-bold text-6xl mb-10">{singleTask.title}</h1>
 
-                        <div className="flex flex-col space-y-1 w-full">
+                        <div className="flex flex-col space-y-1 w-full text-lg font-semibold">
                             <p>Estado: {status()}</p>                   
                             <p>Creado: {creationDate}</p>
                             <p>{singleTask.description}</p>  
@@ -126,7 +126,7 @@ export default function TaskDetail () {
                         type="button"
                         onClick={deleteButton}
                         className= { 
-                            deleteAction? "hidden" : "bg-red-700 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"} 
+                            deleteAction? "hidden" : "mt-10 bg-red-700 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"} 
                     >
                         Borrar Tarea
                     </button>
@@ -159,7 +159,7 @@ export default function TaskDetail () {
 
                 <form
                     onSubmit={submitHandler}
-                    className="flex flex-col md:w-2/5 justify-between bg-slate-300 p-5 rounded-md min-h-80"
+                    className="flex flex-col lg:w-2/5 md:w-1/2 justify-between bg-slate-300 p-5 rounded-md min-h-80"
                 >
                     <h2 className="font-bold text-xl mb-4">Actualizar tarea</h2>
 
@@ -228,7 +228,7 @@ export default function TaskDetail () {
                         </div>
                         <button
                             type="submit"
-                            className="bg-green-500 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-400 hover:shadow-md"
+                            className="bg-green-600 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
                         >
                             Actualizar
                         </button>
