@@ -11,7 +11,7 @@ function App() {
   return (
     <Provider store={store}>
       <Router>
-        <div className='p-6 bg-indigo-300 h-full'>
+        <div className='flex flex-col p-6 bg-indigo-300 min-h-full'>
           <Routes>
             <Route path='/' element={<ManageTask/>}/>
             <Route path='/id/:id' element={<TaskDetail/>}/>

@@ -35,54 +35,18 @@ export function getFilteredTasks (params: { completed?: boolean }) {
   }
 };
 
-export const getByID = (id: string) => {
+export const getByID = (id: string | undefined) => {
     return async (dispatch: any) => {
+      console.log("EJECUTANDO REDUX ACTION - ID")
       try {
-        // dispatch({ type: SET_LOADING_TRUE });
+        dispatch({ type: SET_LOADING_TRUE });
         const response = await axios.get(`${BACKEND_URL}/api/tasks/${id}`);
         console.log(response);
         dispatch({ type: GET_BY_ID, payload: response.data });
       } catch (error) {
         alert(error);
-      }
-    };
-};
-
-export const createTask = (newTask: any) => {
-    return async (dispatch: any) => {
-      try {
-        // dispatch({ type: SET_LOADING_TRUE });
-        const response = await axios.post(`${BACKEND_URL}/api/tasks/`, newTask);
-        console.log(response);
-        dispatch({ type: NEW_TASK, payload: response.data });
-      } catch (error) {
-        alert(error);
-      }
-    };
-};
-
-export const deleteTask = (id: string) => {
-    return async (dispatch: any) => {
-      try {
-        // dispatch({ type: SET_LOADING_TRUE });
-        const response = await axios.delete(`${BACKEND_URL}/api/tasks/${id}`);
-        console.log(response);
-        dispatch({ type: DELETE_TASK, payload: response.data });
-      } catch (error) {
-        alert(error);
-      }
-    };
-};
-
-export const updateTask = (id: string, taskUpdate: any) => {
-    return async (dispatch: any) => {
-      try {
-        // dispatch({ type: SET_LOADING_TRUE });
-        const response = await axios.put(`${BACKEND_URL}/api/tasks/${id}`, taskUpdate);
-        console.log(response);
-        dispatch({ type: UPDATE_TASK, payload: response.data });
-      } catch (error) {
-        alert(error);
-      }
+      } finally {
+        dispatch({ type: SET_LOADING_FALSE });
+    }
     };
 };

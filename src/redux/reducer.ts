@@ -1,9 +1,10 @@
+import { Task } from "../assets/types";
 import { GET_ALL_TASKS, GET_BY_ID, GET_FILTERED_TASKS, SET_LOADING_FALSE, SET_LOADING_TRUE } from "./actions/redux-types";
 
 const initialGlobalState = {
     allTasks: [],
     filteredTasks: [],
-    singleTask: {},
+    singleTask: null as Task | null,
     loading: false
 };
 

@@ -67,20 +67,20 @@ export default function CreateTask () {
             </div>
         )
     } else return (
-        <div>
+        <div className="p-4">
             <Link
                 to={"/"}
-                className="text-lg font-bold mb-20"
+                className="text-lg font-bold mb-20 transition-all transform hover:scale-105 hover:text-xl"
             >
-             {"<--"} Inicio
+             🏡 Inicio
             </Link>
-            <div className="flex flex-col justify-center md:flex-row space-y-10 md:space-y-0 mt-4 md:space-x-5 sm:space-x-0">
+            <div className="flex flex-col justify-center md:flex-row space-y-10 md:space-y-0 mt-16 md:space-x-5 sm:space-x-0">
                 
                 <form
                     onSubmit={submitHandler}
                     className="flex flex-col md:w-2/5 justify-between bg-slate-300 p-5 rounded-md min-h-80"
                 >
-                    <h2 className="font-bold text-xl mb-4">Crear Nueva Tarea</h2>
+                    <h2 className="font-bold lg:text-3xl sm:text-2xl text-center mb-8">Crear Nueva Tarea</h2>
 
                     <div className="flex flex-col space-y-4">
                         <div className="flex space-x-3">
@@ -88,7 +88,7 @@ export default function CreateTask () {
                                 className="font-semibold"
                                 htmlFor="completed_create"
                             >
-                                Completado: <span className="text-red-600">*</span>
+                                Completado:
                             </label>
 
                             <input
@@ -157,6 +157,8 @@ export default function CreateTask () {
                 </form>
 
             </div>
+            <p className="text-center md:text-sm sm:text-xs mt-3">Recuerda que el título es obligatorio para crear una nueva tarea.</p>
+
         </div>
     )
 };

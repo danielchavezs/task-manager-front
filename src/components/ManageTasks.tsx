@@ -46,15 +46,14 @@ export default function ManageTask (){
     } else return (
         
         <div className='flex flex-col items-center bg-white h-full rounded-md p-7'>
-          <div className='flex justify-between border-0 border-red-500 w-full mb-10 mt-5'>
-          <h1 className='font-bold text-5xl'>Gestor de Tareas</h1>
+          <div className='flex justify-between space-x-4 w-full mb-10 mt-5'>
+          <h1 className='font-bold lg:text-6xl md:text-5xl sm:text-3xl'>Gestor de Tareas</h1>
             <Link
                   to={"/new-task"}
-                  className="text-lg font-semibold bg-purple-500 text-white py-1 px-3 rounded-md h-fit"
+                  className="md:text-lg sm:text-sm text-center font-semibold bg-purple-800 text-white py-1 md:px-3 sm:px-1 my-auto rounded-md h-fit max-h-fit w-fit max-w-32 transition-all transform hover:scale-105 hover:bg-purple-600 hover:shadow-md"
               >
-              Nueva Tarea +
+              Nueva Tarea
             </Link>
-
           </div>
 
           <div className='flex gap-2 font-semibold mr-auto mb-8'>

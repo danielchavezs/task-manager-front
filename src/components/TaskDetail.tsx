@@ -2,48 +2,43 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../assets/utils";
+import { getByID } from "../redux/actions/actions";
+import { useSelector } from "react-redux";
+import { RootState } from '../redux/reducer';
+import { useAppDispatch } from "../redux/hook";
+import Loader from "./Loader";
 
 export default function TaskDetail () {
    
     const { id } = useParams();
-    const [task, setTask] = useState<any>({});
+    const dispatch = useAppDispatch();
     const [deleteAction, setDeleteAction] = useState(false);
     const [taskModified, setTaskModified] = useState(false);
-    const [error, setError] = useState(null);
+    const { singleTask, loading } = useSelector((state: RootState) => state);
+    // const [error, setError] = useState(null);
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
         title: "",
         description: "",
         completed: false,
-    });
-
-
-    const getTask = async (id: string | undefined) => {
-      try {
-        const response = await axios.get(`${BACKEND_URL}/api/tasks/${id}`);
-        setTask(response.data);
-        setTaskModified(false);
-        return response.data;
-      } catch (error) {
-        // setError(error.message)
-        console.error("Error obteniendo la publicación:", error);
-        alert(error);
-      }
-    };
-    
+    });   
 
     useEffect (() => {
-        getTask(id);
+        dispatch(getByID(id));
     }, [id, taskModified]);
 
+    if (!singleTask) {
+        return null; // O muestro un mensaje de carga o error
+    }
+
     const status = () => {
-        if(task.completed){
+        if(singleTask?.completed){
             return "Completado"
         } else return "Pendiente"
     };
 
-    const newDate = new Date(task.createdAt);
+    const newDate = new Date(singleTask.createdAt);
     const creationDate = newDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
 
     const taskUpdate = () => {
@@ -102,29 +97,28 @@ export default function TaskDetail () {
 
     console.log("FORM:", form);
 
-    if (!task){
+    
+    if (loading){
         return (
-            <div>
-                <p>ERROR OBTENIENDO LA TAREA</p>
-            </div>
+            <Loader/>
         )
     } else return (
-        <div>
+        <div className="p-4">
             <Link
                 to={"/"}
-                className="text-lg font-bold mb-20"
+                className="text-lg font-bold mb-20 transition-all transform hover:scale-105 hover:text-xl"
             >
-             {"<--"} Inicio
+             🏡 Inicio
             </Link>
-            <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 mt-4 md:space-x-5 sm:space-x-0">
+            <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 mt-16 md:space-x-5 sm:space-x-0">
                 <div className="flex flex-col justify-between md:w-3/5 border-0">
                     <div>
-                        <h1 className="font-bold text-6xl mb-10">{task.title}</h1>
+                        <h1 className="font-bold text-6xl mb-10">{singleTask.title}</h1>
 
                         <div className="flex flex-col space-y-1 w-full">
                             <p>Estado: {status()}</p>                   
                             <p>Creado: {creationDate}</p>
-                            <p>{task.description}</p>  
+                            <p>{singleTask.description}</p>  
                         </div>
                     </div>
 
@@ -132,7 +126,7 @@ export default function TaskDetail () {
                         type="button"
                         onClick={deleteButton}
                         className= { 
-                            deleteAction? "hidden" : "bg-red-600 w-fit py-1 px-4 rounded-md text-white font-semibold"} 
+                            deleteAction? "hidden" : "bg-red-700 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"} 
                     >
                         Borrar Tarea
                     </button>
@@ -148,14 +142,14 @@ export default function TaskDetail () {
                             <button
                                 type="button"
                                 onClick={confirmDeleteButton}
-                                className= "bg-red-600 w-fit py-1 px-4 rounded-md text-white font-semibold"
+                                className= "bg-red-700 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"
                             >
                                 Confirmar
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setDeleteAction(false)}
-                                className= "bg-slate-400 w-fit py-1 px-4 rounded-md text-white font-semibold"
+                                className= "bg-slate-500 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-slate-400 hover:shadow-md"
                             >
                                 Cancelar
                             </button>    
@@ -234,7 +228,7 @@ export default function TaskDetail () {
                         </div>
                         <button
                             type="submit"
-                            className="bg-green-500 w-fit py-1 px-4 rounded-md text-white font-semibold"
+                            className="bg-green-500 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-400 hover:shadow-md"
                         >
                             Actualizar
                         </button>

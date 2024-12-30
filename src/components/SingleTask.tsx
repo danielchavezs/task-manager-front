@@ -47,8 +47,8 @@ export default function SingleTask ({id, title, description, completed, createdA
     return (
         <div 
         // "flex border-2 min-w-72 bg-slate-400 rounded-md p-2"
-            className={ completed? "flex border-2 min-w-72 rounded-md p-2 bg-green-300 border-slate-800 h-fit" : 
-                "flex border-2 min-w-72 rounded-md p-2 bg-orange-400 border-slate-800 h-fit"     
+            className={ completed? "flex border-2 min-w-[270px] rounded-md p-2 bg-green-300 border-slate-800 h-fit" : 
+                "flex border-2 min-w-[270px] rounded-md p-2 bg-orange-400 border-slate-800 h-fit"     
             }
             onMouseEnter={() => setShowing(true)}
             onMouseLeave={() => setShowing(false)}
@@ -57,8 +57,8 @@ export default function SingleTask ({id, title, description, completed, createdA
             <Link to={`/id/${id}`} className="w-full">
                 <div className="flex flex-col space-y-2 w-full">
                     
-                    <h2 className="font-semibold">{title}</h2>
-                    <p>{status()}</p>
+                    <h2 className="font-bold text-lg">{title}</h2>
+                    <p className="font-semibold">{status()}</p>
                     {/* <div className={`flex flex-col mt-4 transition-all duration-1000 ease-in-out ${showing ? 'max-h-fit opacity-100' : 'max-h-0 opacity-0'} overflow-hidden`}>
                         <p>Creado: {creationDate}</p>
                         <p>{description}</p>  
@@ -68,8 +68,8 @@ export default function SingleTask ({id, title, description, completed, createdA
                             showing ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
                         }`}
                         >
-                        <p>Creado: {creationDate}</p>
-                        <p>{description}</p>
+                        <p className="font-semibold">Creado: {creationDate}</p>
+                        <p className="font-semibold">{description}</p>
                     </div>
 
                 </div>
@@ -78,7 +78,7 @@ export default function SingleTask ({id, title, description, completed, createdA
             <button
                     type="button"
                     onClick={toogleState}
-                    className= "bg-slate-700 w-fit py-1 h-fit px-3 m-auto rounded-md text-white font-semibold" 
+                    className= "bg-slate-700 w-fit py-1 h-fit px-3 m-auto rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-slate-600 hover:shadow-md" 
                 >
                 Marcar
             </button>
