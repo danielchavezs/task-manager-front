@@ -42,10 +42,11 @@ export default function ManageTask (){
         <div className='flex flex-col space-y-20 items-center bg-slate-300 border-2 border-red-700 h-full'>
           <h1 className='font-bold'>MANAGE TASKS</h1>
 
-          <div className='grid grid-cols-2 gap-5 w-full border-blue-500 border'>
+          <div className='grid grid-cols-3 gap-5 w-full border-blue-500 border'>
             {tasks.map((task: Task) => (
               <SingleTask
                 key={task._id}
+                id={task._id}
                 title={task.title}
                 completed={task.completed}
                 description={task.description}
