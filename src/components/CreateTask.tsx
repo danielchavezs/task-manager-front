@@ -73,7 +73,7 @@ export default function CreateTask () {
         <div className="p-4">
             <Link
                 to={"/"}
-                className="text-lg font-bold mb-20 transition-all transform hover:scale-105 hover:text-xl"
+                className="text-lg md:text-xl font-bold mb-20 transition-all transform hover:scale-105 hover:text-2xl"
             >
              🏡 Inicio
             </Link>
@@ -81,11 +81,11 @@ export default function CreateTask () {
                 
                 <form
                     onSubmit={submitHandler}
-                    className="flex flex-col md:w-2/5 justify-between bg-slate-300 p-5 rounded-md min-h-80"
+                    className="flex flex-col shadow-xl md:w-3/5 lg:w-2/5 justify-between bg-slate-300 sm:p-3 md:p-5 rounded-md min-h-80"
                 >
-                    <h2 className="font-bold lg:text-3xl sm:text-2xl text-center mb-8">Crear Nueva Tarea</h2>
+                    <h2 className="font-bold lg:text-3xl sm:text-xl text-center sm:mb-8 md:mb-12">Crear Nueva Tarea</h2>
 
-                    <div className="flex flex-col space-y-4">
+                    <div className="flex flex-col space-y-4 sm:text-sm md:text-base">
                         <div className="flex space-x-3">
                             <label
                                 className="font-semibold"
@@ -114,7 +114,7 @@ export default function CreateTask () {
                                 className="font-semibold"
                                 htmlFor="title_create"
                             >
-                                Título:
+                                Título: <span className="text-red-600">*</span>
                             </label>
 
                             <input
@@ -151,7 +151,7 @@ export default function CreateTask () {
                         </div>
                         <button
                             type="submit"
-                            className="bg-green-500 w-fit py-1 px-4 rounded-md text-white font-semibold"
+                            className="bg-green-600 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
                         >
                             Crear Tarea
                         </button>

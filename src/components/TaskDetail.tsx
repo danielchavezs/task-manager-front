@@ -106,19 +106,19 @@ export default function TaskDetail () {
         <div className="p-4">
             <Link
                 to={"/"}
-                className="text-lg font-bold mb-20 transition-all transform hover:scale-105 hover:text-xl"
+                className="text-lg md:text-xl font-bold mb-20 transition-all transform hover:scale-105 hover:text-2xl"
             >
              🏡 Inicio
             </Link>
             <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:mt-16 sm:mt-8 md:space-x-8 sm:space-x-0">
                 <div className="flex flex-col justify-between lg:w-3/5 md:w-1/2 border-0">
                     <div>
-                        <h1 className="font-bold text-6xl mb-10">{singleTask.title}</h1>
+                        <h1 className="font-bold lg:text-5xl md:text-4xl sm:text-2xl mb-10">{singleTask.title}</h1>
 
                         <div className="flex flex-col space-y-1 w-full text-lg font-semibold">
-                            <p>Estado: {status()}</p>                   
-                            <p>Creado: {creationDate}</p>
-                            <p>{singleTask.description}</p>  
+                            <p className="text-base md:text-lg">Estado: {status()}</p>                   
+                            <p className="text-base md:text-lg">Creado: {creationDate}</p>
+                            <p className="text-base md:text-lg">{singleTask.description}</p>  
                         </div>
                     </div>
 
@@ -126,7 +126,7 @@ export default function TaskDetail () {
                         type="button"
                         onClick={deleteButton}
                         className= { 
-                            deleteAction? "hidden" : "mt-10 bg-red-700 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"} 
+                            deleteAction? "hidden" : "mt-10 bg-red-700 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"} 
                     >
                         Borrar Tarea
                     </button>
@@ -142,14 +142,14 @@ export default function TaskDetail () {
                             <button
                                 type="button"
                                 onClick={confirmDeleteButton}
-                                className= "bg-red-700 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"
+                                className= "bg-red-700 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"
                             >
                                 Confirmar
                             </button>
                             <button
                                 type="button"
                                 onClick={() => setDeleteAction(false)}
-                                className= "bg-slate-500 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-slate-400 hover:shadow-md"
+                                className= "bg-slate-500 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-slate-400 hover:shadow-md"
                             >
                                 Cancelar
                             </button>    
@@ -159,9 +159,9 @@ export default function TaskDetail () {
 
                 <form
                     onSubmit={submitHandler}
-                    className="flex flex-col lg:w-2/5 md:w-1/2 justify-between bg-slate-300 p-5 rounded-md min-h-80"
+                    className="flex flex-col shadow-xl lg:w-2/5 md:w-1/2 justify-between bg-slate-300 p-5 rounded-md min-h-80"
                 >
-                    <h2 className="font-bold text-xl mb-4">Actualizar tarea</h2>
+                    <h2 className="font-bold sm:text-xl md:text-2xl mb-4">Actualizar tarea</h2>
 
                     <div className="flex flex-col space-y-4">
                         <div className="flex space-x-3">
@@ -228,7 +228,7 @@ export default function TaskDetail () {
                         </div>
                         <button
                             type="submit"
-                            className="bg-green-600 w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
+                            className="bg-green-600 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
                         >
                             Actualizar
                         </button>

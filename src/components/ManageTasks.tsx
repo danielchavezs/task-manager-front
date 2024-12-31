@@ -39,21 +39,21 @@ export default function ManageTask (){
       )
     } else return (
         
-        <div className='flex flex-col items-center bg-white h-full rounded-md p-7'>
+        <div className='flex flex-col items-center md:bg-slate-100/90 sm:bg-slate-100/80 h-full rounded-md sm:p-5 md:p-7 sm:m-0 md:m-5'>
           <div className='flex justify-between space-x-4 w-full mb-10 mt-5'>
-          <h1 className='font-bold lg:text-6xl md:text-5xl sm:text-3xl'>Gestor de Tareas</h1>
+          <h1 className='font-bold lg:text-5xl md:text-4xl sm:text-2xl'>Gestor de Tareas</h1>
             <Link
                   to={"/new-task"}
-                  className="md:text-lg sm:text-sm text-center font-semibold bg-purple-800 text-white py-1 md:px-3 sm:px-1 my-auto rounded-md h-fit max-h-fit w-fit max-w-32 transition-all transform hover:scale-105 hover:bg-purple-600 hover:shadow-md"
+                  className="lg:text-lg md:text-base sm:text-xs text-center font-bold bg-purple-800 text-white py-1 md:px-3 sm:px-2 my-auto rounded-md h-fit max-h-fit w-fit transition-all transform hover:scale-105 hover:bg-purple-600 hover:shadow-md"
               >
-              Nueva Tarea
+              Nueva Tarea +
             </Link>
           </div>
 
           <div className='flex gap-2 font-semibold mr-auto mb-8'>
             <label
               htmlFor='completed_filter'
-              className='text-lg'
+              className='md:text-lg'
             >
               Filtrar:
             </label>
