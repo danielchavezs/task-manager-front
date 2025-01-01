@@ -10,4 +10,4 @@ export default function Loader () {
             <p className='font-bold md:text-xl text-white'>CARGANDO</p>
         </div>
     )
-}
+};

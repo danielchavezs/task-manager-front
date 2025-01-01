@@ -4,7 +4,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../assets/utils";
 import { getByID } from "../redux/actions/actions";
 import { useSelector } from "react-redux";
-import { RootState } from '../redux/reducer';
+import { RootState } from "../redux/store";
 import { useAppDispatch } from "../redux/hook";
 import Loader from "./Loader";
 
@@ -76,11 +76,14 @@ export default function TaskDetail () {
             const response = await axios.delete(`${BACKEND_URL}/api/tasks/${id}`);
 
             if (response.status === 200){
-                window.alert("Tarea eliminada exitosamente");
+                window.alert(response.data.message || "Tarea eliminada exitosamente");  // AGREGADO modificado agregando el response.data.message
                 navigate('/');
-            } else { window.alert("Error eliminando la tarea.") }
+            } else { 
+                window.alert(response.data.error || "Error eliminando la tarea."); 
+            }
         } catch (error) {
             console.error(error);
+            window.alert("Ocurrió un error inesperado. Intenta nuevamente.");   // AGREGADO
         }
     };
 
@@ -91,10 +94,13 @@ export default function TaskDetail () {
             const response = await axios.put(`${BACKEND_URL}/api/tasks/${id}`, newTask);
             if (response.status === 200){
                 setTaskModified(true);
-                window.alert("Tarea actualizada exitosamente");
-            } else { window.alert("Error actualizando la tarea..") }
+                window.alert(response.data.message || "Tarea actualizada exitosamente"); // AGREGADO
+            } else { 
+                window.alert(response.data.error || "Error actualizando la tarea."); // AGREGADO
+            }
         } catch (error) {
             console.error(error);
+            window.alert("Ocurrió un error inesperado. Intenta nuevamente.");   // AGREGADO
         }
     };
     

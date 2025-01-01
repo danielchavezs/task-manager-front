@@ -6,3 +6,8 @@ export const DELETE_TASK = "DELETE_TASK";
 export const UPDATE_TASK = "UPDATE_TASK";
 export const SET_LOADING_TRUE = 'SET_LOADING_TRUE';
 export const SET_LOADING_FALSE = 'SET_LOADING_FALSE';
+export const SET_ERROR_TRUE = 'SET_ERROR_TRUE';
+export const SET_ERROR_FALSE = 'SET_ERROR_FALSE';
+
+
+

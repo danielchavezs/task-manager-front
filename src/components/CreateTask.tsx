@@ -51,13 +51,17 @@ export default function CreateTask () {
         const newTask = taskUpdate();
         try {
             const response = await axios.post(`${BACKEND_URL}/api/tasks/`, newTask);
-            console.log("Client response - POST: ", response);
-            if (response.status === 200){
-                window.alert("Tarea creada exitosamente");
+            if (response.status === 201){   // modificado de 200 a 201
+                window.alert(response.data.message || "Tarea creada exitosamente");
+                // window.alert("Tarea creada exitosamente");
                 navigate(`/`)
-            } else { window.alert("Error creando la tarea.") }
+            } else { 
+                // window.alert("Error creando la tarea.") 
+                window.alert(response.data.error || "Error creando la tarea.");
+            }
         } catch (error) {
             console.error(error);
+            window.alert("Ocurrió un error inesperado. Intenta nuevamente.");
         }
     };
 

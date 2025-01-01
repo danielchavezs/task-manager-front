@@ -5,6 +5,7 @@ import ManageTask from './components/ManageTasks';
 import TaskDetail from './components/TaskDetail';
 import CreateTask from './components/CreateTask';
 import Loader from './components/Loader';
+import ErrorMessage from './components/ErrorMessage';
 
 function App() {
 
@@ -17,12 +18,12 @@ function App() {
             <Route path='/id/:id' element={<TaskDetail/>}/>
             <Route path='/new-task' element={<CreateTask/>}/>
             <Route path='/loader' element={<Loader/>}/>
+            <Route path='/error' element={<ErrorMessage/>}/>
           </Routes>
         </div>
 
       </Router>
     </Provider>
-
   );
 }
 

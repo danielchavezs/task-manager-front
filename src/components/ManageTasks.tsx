@@ -4,7 +4,7 @@ import { Task } from '../assets/types';
 import { Link } from 'react-router-dom';
 import { getFilteredTasks } from '../redux/actions/actions';
 import { useSelector } from 'react-redux';
-import { RootState } from '../redux/reducer';
+import { RootState } from '../redux/store';
 import { useAppDispatch } from '../redux/hook';
 import Loader from './Loader';
 
