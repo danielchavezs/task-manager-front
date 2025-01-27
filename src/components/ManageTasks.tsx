@@ -39,7 +39,7 @@ export default function ManageTask (){
       )
     } else return (
         
-        <div className='flex flex-col items-center md:bg-slate-600/20 sm:bg-slate-50/10 h-full rounded-md sm:p-5 md:p-7 sm:m-0 md:m-5'>
+        <div className='flex flex-col items-center bg-slate-600/20 h-full rounded-md sm:p-5 md:p-7 sm:m-0 md:m-5'>
           <div className='flex justify-between space-x-4 w-full mb-10 mt-5'>
           <h1 className='font-bold lg:text-5xl md:text-4xl sm:text-2xl'>Gestor de Tareas</h1>
             <Link

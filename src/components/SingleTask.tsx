@@ -71,8 +71,7 @@ export default function SingleTask ({id, title, description, completed, createdA
                 <div className="flex flex-col space-y-1 w-full">
                     
                     <h2 className="font-bold lg:text-lg">{title}</h2>
-                    {/* <p className="font-semibold lg:text-base sm:text-sm">{status()}</p> */}
-                    <p className="font-semibold lg:text-base sm:text-sm">{creationDate}</p>
+                    <p className="font-semibold text-sm">{creationDate}</p>
                     <div
                         className={`flex flex-col mt-4 overflow-hidden transition-[max-height,opacity] duration-700 ease-in-out ${
                             showing ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0'
@@ -80,22 +79,14 @@ export default function SingleTask ({id, title, description, completed, createdA
                         >
                         <p className="font-semibold lg:text-base sm:text-sm mt-4">{description}</p>
                     </div>
-
                 </div>
             </Link>
 
-            {/* <button
-                    type="button"
-                    onClick={toogleState}
-                    className= "bg-slate-700 w-fit py-1 h-fit px-3 m-auto rounded-md text-white font-semibold lg:text-base sm:text-sm transition-all transform hover:scale-105 hover:bg-slate-600 hover:shadow-md" 
-                >
-                Marcar
-            </button> */}
             <button
                     type="button"
                     onClick={toogleState}
-                    className={ completed? "border border-green-500 w-fit py-1 h-fit px-3 m-auto rounded-md text-white font-semibold lg:text-base sm:text-sm transition-all transform hover:scale-105 hover:bg-green-700 hover:shadow-md" : 
-                        "border border-orange-600 w-fit py-1 h-fit px-3 m-auto rounded-md text-white font-semibold lg:text-base sm:text-sm transition-all transform hover:scale-105 hover:bg-orange-700 hover:shadow-md"     
+                    className={ completed? "border border-green-500 md:w-36 sm:w-32 py-1 h-fit px-auto m-auto rounded-md text-white text-sm font-semibold transition-all transform hover:scale-105 hover:bg-green-700 hover:shadow-md" : 
+                        "border border-orange-600 md:w-36 sm:w-32 py-1 h-fit px-auto m-auto rounded-md text-white text-sm font-semibold transition-all transform hover:scale-105 hover:bg-orange-700 hover:shadow-md"     
                     }
                 >
                 {status()}

@@ -15,6 +15,7 @@ export default function TaskDetail () {
     const dispatch = useAppDispatch();
     const [deleteAction, setDeleteAction] = useState(false);
     const [taskModified, setTaskModified] = useState(false);
+    const [formInteraction, setFormInteraction] = useState(false);
     const { singleTask, loading } = useSelector((state: RootState) => state);
     const navigate = useNavigate();
 
@@ -71,6 +72,14 @@ export default function TaskDetail () {
         setDeleteAction(true);
     };
 
+    const toogleInteraction = () => {
+      if(!taskModified){
+        setTaskModified(true);
+      } else{
+        setTaskModified(false);
+      }
+    };
+
     // Función que realmente ejecuta la llamada a la API para eliminar la tarea
     const confirmDeleteButton = async (event: React.MouseEvent<HTMLButtonElement>) => {
         try {
@@ -91,11 +100,18 @@ export default function TaskDetail () {
     const submitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const newTask = taskUpdate();
+
+        if(!formInteraction){
+          alert("Por favor modifica la tarea para poder actualizarla.");
+          return;
+        }
+
         try {
             const response = await axios.put(`${BACKEND_URL}/api/tasks/${id}`, newTask);
             if (response.status === 200){
-                setTaskModified(true);
+                toogleInteraction()
                 window.alert(response.data.message || "Tarea actualizada exitosamente"); // AGREGADO
+                setFormInteraction(false);
             } else { 
                 window.alert(response.data.error || "Error actualizando la tarea."); // AGREGADO
             }
@@ -198,6 +214,7 @@ export default function TaskDetail () {
                       ...form,
                       completed: event.target.checked,
                     });
+                    setFormInteraction(true)
                   }}
                 ></input>
               </div>
@@ -215,6 +232,7 @@ export default function TaskDetail () {
                   value={form.title}
                   onChange={(e) => {
                     changeHandlder(e);
+                    setFormInteraction(true)
                   }}
                 ></input>
               </div>
@@ -231,6 +249,7 @@ export default function TaskDetail () {
                   value={form.description}
                   onChange={(event) => {
                     changeHandlder(event);
+                    setFormInteraction(true)
                   }}
                 ></textarea>
               </div>
