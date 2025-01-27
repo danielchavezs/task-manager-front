@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useAppDispatch } from "../redux/hook";
 import Loader from "./Loader";
+import HomeIcon from "../assets/HomeIcon";
 
 export default function TaskDetail () {
    
@@ -109,140 +110,139 @@ export default function TaskDetail () {
             <Loader/>
         )
     } else return (
-        <div className="p-4">
-            <Link
-                to={"/"}
-                className="text-lg md:text-xl font-bold mb-20 transition-all transform hover:scale-105 hover:text-2xl"
-            >
-             🏡 Inicio
-            </Link>
-            <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:mt-16 sm:mt-8 md:space-x-8 sm:space-x-0">
-                <div className="flex flex-col justify-between lg:w-3/5 md:w-1/2 border-0">
-                    <div>
-                        <h1 className="font-bold lg:text-5xl md:text-4xl sm:text-2xl mb-10">{singleTask.title}</h1>
+      <div className="p-4">
+        <Link to={"/"} className="text-lg md:text-xl font-bold mb-20">
+          <div className="flex w-fit space-x-2 items-center borde-0r py-1 transition-all transform hover:scale-110">
+            <HomeIcon />
+            <span>Inicio</span>
+          </div>
+        </Link>
+        <div className="flex flex-col md:flex-row space-y-10 md:space-y-0 md:mt-16 sm:mt-8 md:space-x-8 sm:space-x-0">
+          <div className="flex flex-col justify-between md:w-1/2">
+            <div>
+              <h1 className="font-bold lg:text-5xl md:text-4xl sm:text-2xl mb-10">
+                {singleTask.title}
+              </h1>
 
-                        <div className="flex flex-col space-y-1 w-full text-lg font-semibold">
-                            <p className="text-base md:text-lg">Estado: {status()}</p>                   
-                            <p className="text-base md:text-lg">Creado: {creationDate}</p>
-                            <p className="text-base md:text-lg">{singleTask.description}</p>  
-                        </div>
-                    </div>
-
-                    <button
-                        type="button"
-                        onClick={deleteButton}
-                        className= { 
-                            deleteAction? "hidden" : "mt-10 bg-red-700 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"} 
-                    >
-                        Borrar Tarea
-                    </button>
-
-                    <div
-                        className= { 
-                        deleteAction ? "block mt-8" : "hidden"} 
-                    >
-
-                        <p className="text-sm font-semibold">¿Confirmar borrado de tarea? Esta acción no se puede deshacer.</p>
-
-                        <div className="flex gap-2 mt-1">
-                            <button
-                                type="button"
-                                onClick={confirmDeleteButton}
-                                className= "bg-red-700 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-red-600 hover:shadow-md"
-                            >
-                                Confirmar
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setDeleteAction(false)}
-                                className= "bg-slate-500 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-slate-400 hover:shadow-md"
-                            >
-                                Cancelar
-                            </button>    
-                        </div>    
-                    </div>
-                </div>
-
-                <form
-                    onSubmit={submitHandler}
-                    className="flex flex-col shadow-xl lg:w-2/5 md:w-1/2 justify-between bg-slate-300 p-5 rounded-md min-h-80"
-                >
-                    <h2 className="font-bold sm:text-xl md:text-2xl mb-4">Actualizar tarea</h2>
-
-                    <div className="flex flex-col space-y-4">
-                        <div className="flex space-x-3">
-                            <label
-                                className="font-semibold"
-                                htmlFor="completed_update"
-                            >
-                                Completado: <span className="text-red-600">*</span>
-                            </label>
-
-                            <input
-                                id="completed"
-                                name="completed_update"
-                                type="checkbox"
-                                checked={form.completed}
-                                onChange={(event) => {
-                                    setForm({
-                                        ...form,
-                                        completed: event.target.checked
-                                    })
-                                }}   
-                            >
-                            </input>
-                        </div>
-
-                        <div className="flex flex-col space-y-3">
-                            <label
-                                className="font-semibold"
-                                htmlFor="title_update"
-                            >
-                                Título:
-                            </label>
-
-                            <input
-                                id="title_update"
-                                name="title"
-                                type="text"
-                                value={form.title} 
-                                onChange={(e) => {
-                                    changeHandlder(e);
-                                }}   
-                            >
-                            </input>
-                        </div>
-
-                        <div className="flex flex-col space-y-3">
-                            <label
-                                className="font-semibold"
-                                htmlFor="description_update"
-                            >
-                                Descripción:
-                            </label>
-
-                            <textarea
-                                className="min-h-24"
-                                id="description_update"
-                                name="description"
-                                value={form.description} 
-                                onChange={(event) => {
-                                    changeHandlder(event);
-                                }}   
-                            >
-                            </textarea>
-                        </div>
-                        <button
-                            type="submit"
-                            className="bg-green-600 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
-                        >
-                            Actualizar
-                        </button>
-                    </div>
-
-                </form>
-
+              <div className="flex flex-col space-y-1 w-full text-lg font-semibold">
+                <p className="text-base md:text-lg">
+                  {" "}
+                  <span className="font-bold">Estado: </span> {status()}
+                </p>
+                <p className="text-base md:text-lg">
+                  <span className="font-bold">Creado: </span> {creationDate}
+                </p>
+                <p className="text-base md:text-lg">{singleTask.description}</p>
+              </div>
             </div>
+            <strong></strong>
+
+            <button
+              type="button"
+              onClick={deleteButton}
+              className={
+                deleteAction
+                  ? "hidden"
+                  : "mt-10 bg-red-600 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:shadow-md"
+              }
+            >
+              Borrar Tarea
+            </button>
+
+            <div className={deleteAction ? "block mt-8" : "hidden"}>
+              <p className="text-sm font-semibold">
+                ¿Confirmar borrado de tarea? Esta acción no se puede deshacer.
+              </p>
+
+              <div className="flex gap-2 mt-1">
+                <button
+                  type="button"
+                  onClick={confirmDeleteButton}
+                  className="bg-red-600 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:shadow-md"
+                >
+                  Confirmar
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setDeleteAction(false)}
+                  className="bg-slate-500 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-slate-400 hover:shadow-md"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <form
+            onSubmit={submitHandler}
+            className="flex flex-col shadow-xl lg:w-2/5 md:w-1/2 justify-between bg-slate-100/10 p-5 rounded-md min-h-80"
+          >
+            <h2 className="font-bold sm:text-xl md:text-3xl mb-4">
+              Actualizar tarea
+            </h2>
+
+            <div className="flex flex-col space-y-4">
+              <div className="flex space-x-3">
+                <label className="font-semibold" htmlFor="completed_update">
+                  Completado: <span className="text-red-700">*</span>
+                </label>
+
+                <input
+                  id="completed"
+                  name="completed_update"
+                  type="checkbox"
+                  className="bg-slate-600"
+                  checked={form.completed}
+                  onChange={(event) => {
+                    setForm({
+                      ...form,
+                      completed: event.target.checked,
+                    });
+                  }}
+                ></input>
+              </div>
+
+              <div className="flex flex-col space-y-3">
+                <label className="font-semibold" htmlFor="title_update">
+                  Título:
+                </label>
+
+                <input
+                  id="title_update"
+                  name="title"
+                  type="text"
+                  className="rounded-md bg-slate-400"
+                  value={form.title}
+                  onChange={(e) => {
+                    changeHandlder(e);
+                  }}
+                ></input>
+              </div>
+
+              <div className="flex flex-col space-y-3">
+                <label className="font-semibold" htmlFor="description_update">
+                  Descripción:
+                </label>
+
+                <textarea
+                  className="min-h-24 rounded-md bg-slate-400"
+                  id="description_update"
+                  name="description"
+                  value={form.description}
+                  onChange={(event) => {
+                    changeHandlder(event);
+                  }}
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="bg-green-600 shadow-md sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-bold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
+              >
+                Actualizar
+              </button>
+            </div>
+          </form>
         </div>
-    )
+      </div>
+    );
 };

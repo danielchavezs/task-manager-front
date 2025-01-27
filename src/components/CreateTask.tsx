@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../assets/utils";
+import HomeIcon from "../assets/HomeIcon";
 
 export default function CreateTask () {
    
@@ -77,15 +78,18 @@ export default function CreateTask () {
         <div className="p-4">
             <Link
                 to={"/"}
-                className="text-lg md:text-xl font-bold mb-20 transition-all transform hover:scale-105 hover:text-2xl"
+                className="text-lg md:text-xl font-bold mb-20"
             >
-             🏡 Inicio
+                <div className="flex w-fit space-x-2 items-center borde-0r py-1 transition-all transform hover:scale-110">
+                    <HomeIcon/> 
+                    <span>Inicio</span>
+                </div>
             </Link>
             <div className="flex flex-col justify-center md:flex-row space-y-10 md:space-y-0 mt-16 md:space-x-5 sm:space-x-0">
                 
                 <form
                     onSubmit={submitHandler}
-                    className="flex flex-col shadow-xl md:w-3/5 lg:w-2/5 justify-between bg-slate-300 sm:p-3 md:p-5 rounded-md min-h-80"
+                    className="flex flex-col shadow-2xl md:w-3/5 lg:w-2/5 justify-between bg-slate-100/10 sm:p-3 md:p-5 rounded-md min-h-80"
                 >
                     <h2 className="font-bold lg:text-3xl sm:text-xl text-center sm:mb-8 md:mb-12">Crear Nueva Tarea</h2>
 
@@ -118,7 +122,7 @@ export default function CreateTask () {
                                 className="font-semibold"
                                 htmlFor="title_create"
                             >
-                                Título: <span className="text-red-600">*</span>
+                                Título: <span className="text-red-700">*</span>
                             </label>
 
                             <input
@@ -126,7 +130,8 @@ export default function CreateTask () {
                                 id="title_create"
                                 name="title"
                                 type="text"
-                                value={form.title} 
+                                value={form.title}
+                                className="rounded-md bg-slate-400"
                                 onChange={(e) => {
                                     changeHandlder(e);
                                 }}   
@@ -143,10 +148,10 @@ export default function CreateTask () {
                             </label>
 
                             <textarea
-                                className="min-h-24"
+                                className="min-h-24 rounded-md bg-slate-400"
                                 id="description_create"
                                 name="description"
-                                value={form.description} 
+                                value={form.description}
                                 onChange={(event) => {
                                     changeHandlder(event);
                                 }}   
@@ -155,7 +160,7 @@ export default function CreateTask () {
                         </div>
                         <button
                             type="submit"
-                            className="bg-green-600 sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
+                            className="bg-green-600 shadow-md sm:text-sm md:text-base w-fit py-1 px-4 rounded-md text-white font-semibold transition-all transform hover:scale-105 hover:bg-green-500 hover:shadow-md"
                         >
                             Crear Tarea
                         </button>
