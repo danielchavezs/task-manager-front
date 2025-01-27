@@ -39,12 +39,12 @@ export default function ManageTask (){
       )
     } else return (
         
-        <div className='flex flex-col items-center md:bg-slate-100/90 sm:bg-slate-100/80 h-full rounded-md sm:p-5 md:p-7 sm:m-0 md:m-5'>
+        <div className='flex flex-col items-center md:bg-slate-600/20 sm:bg-slate-50/10 h-full rounded-md sm:p-5 md:p-7 sm:m-0 md:m-5'>
           <div className='flex justify-between space-x-4 w-full mb-10 mt-5'>
           <h1 className='font-bold lg:text-5xl md:text-4xl sm:text-2xl'>Gestor de Tareas</h1>
             <Link
                   to={"/new-task"}
-                  className="lg:text-lg md:text-base sm:text-xs text-center font-bold bg-purple-800 text-white py-1 md:px-3 sm:px-2 my-auto rounded-md h-fit max-h-fit w-fit transition-all transform hover:scale-105 hover:bg-purple-600 hover:shadow-md"
+                  className="lg:text-lg md:text-base sm:text-xs text-center font-bold bg-purple-700 text-white py-1 md:px-3 sm:px-2 my-auto rounded-md h-fit max-h-fit w-fit transition-all transform hover:scale-105 hover:bg-purple-600 hover:shadow-md"
               >
               Nueva Tarea +
             </Link>
@@ -58,7 +58,7 @@ export default function ManageTask (){
               Filtrar:
             </label>
             <select
-            className='px-4 rounded-md border border-slate-300'
+            className='px-4 rounded-md border border-slate-600 bg-slate-700'
               id='completed_filter'
               name="completed_filter"
               value={filter}

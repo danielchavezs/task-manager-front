@@ -16,7 +16,7 @@
 }
 
 body {
-  @apply text-slate-700 bg-indigo-300 min-h-screen flex flex-col; /* Usa las clases de Tailwind directamente */
+  @apply text-slate-200 bg-slate-900 min-h-screen flex flex-col; /* Usa las clases de Tailwind directamente */
 }
 
 html {
